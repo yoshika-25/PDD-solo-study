@@ -1,0 +1,13 @@
+<?php
+$host = "localhost";  // Change this if your database is hosted elsewhere
+$username = "root";   // Default XAMPP username is "root"
+$password = "";       // Default XAMPP password is empty
+$database = "user_system"; // Change this to your actual database name
+
+$conn = new mysqli($host, $username, $password, $database);
+
+// Check connection
+if ($conn->connect_error) {
+    die(json_encode(["status" => "error", "message" => "Database connection failed: " . $conn->connect_error]));
+}
+?>

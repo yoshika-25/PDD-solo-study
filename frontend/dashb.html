@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - EDU HUB</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            background-color: #00A5C0;
+            color: black;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: white;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar-brand img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        /* Dashboard Section */
+        .dashboard-container {
+            max-width: 600px;
+            margin: auto;
+            text-align: center;
+            padding-top: 80px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: "";
+            display: block;
+            width: 50%;
+            height: 2px;
+            background: white;
+            margin: 5px auto 10px;
+        }
+
+        .data-box {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <img src="https://play-lh.googleusercontent.com/XXQrqsrJbTGv8vMx9iGBvsnpN5E2K9nTtkuwXy3fBqdY1rWzuXTUjuvaXWbmIbhrZTY=w526-h296-rw" alt="EDU HUB Logo">
+                <span class="fw-bold">EDU HUB</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link fw-bold" href="#">Home</a></li>
+                    <li class="nav-item"><a class="nav-link fw-bold" href="#">Add</a></li>
+                    <li class="nav-item"><a class="nav-link fw-bold" href="#">Goal</a></li>
+                    <li class="nav-item"><a class="nav-link fw-bold" href="#">Dailyupdates</a></li>
+                    <li class="nav-item"><a class="nav-link fw-bold" href="#">Profile</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dashboard Content -->
+    <div class="dashboard-container">
+        <h2 class="section-title">Subject List</h2>
+        <div class="data-box">
+            <p id="subjectData">Loading...</p>
+        </div>
+
+        <h2 class="section-title">Task Progress</h2>
+        <div class="data-box">
+            <p id="taskData">Loading...</p>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Fetch Subjects & Tasks -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch("http://localhost/StudyHub/Backend/fetch_dashboard.php")
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("subjectData").innerText = data.subjects.length ? data.subjects.join(", ") : "No data found!";
+                document.getElementById("taskData").innerText = data.tasks.length ? data.tasks.join(", ") : "No data found!";
+            })
+            .catch(error => {
+                document.getElementById("subjectData").innerText = "Error loading subjects!";
+                document.getElementById("taskData").innerText = "Error loading tasks!";
+                console.error("Error fetching data:", error);
+            });
+        });
+    </script>
+
+</body>
+</html>

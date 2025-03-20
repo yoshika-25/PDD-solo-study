@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Hub</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #00A5C0;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        /* Navbar */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            padding: 15px 20px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .header img {
+            height: 50px;
+        }
+
+        .header nav {
+            font-size: 18px;
+        }
+
+        .header nav a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+        }
+
+        /* Main Content */
+        .container {
+            padding: 50px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .image-container img {
+            max-width: 50%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .title {
+            font-size: 40px;
+            font-weight:bold;
+            font-family: 'Times New Roman', serif;
+            margin-top: 20px;
+        }
+
+        .description {
+            font-size: 18px;
+            max-width: 500px;
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        .start-button {
+            background: white;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-size: 20px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .start-button:hover {
+            background: #f0f0f0;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+                padding: 10px;
+            }
+
+            .header img {
+                height: 40px;
+                margin-bottom: 5px;
+            }
+
+            .header nav a {
+                font-size: 16px;
+                margin: 10px;
+                display: block;
+            }
+
+            .title {
+                font-size: 30px;
+            }
+
+            .description {
+                font-size: 16px;
+                max-width: 90%;
+            }
+
+            .start-button {
+                padding: 12px 25px;
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRh9mS03SPULJ7me21Y6DZ7GX5y3OP6CWgGKQ&s" alt="Study Hub Logo">
+        <nav>
+            <a href="../frontend/login.html">Login</a>
+            <a href="../frontend/signup.html">Signup</a>
+            <a href="../frontend/adminlogin.php">Admin</a>
+
+        </nav>
+    </div>
+
+    <div class="container">
+        <div class="image-container">
+            <img src="https://steelcase-res.cloudinary.com/image/upload/c_fill,dpr_auto,q_70,h_656,w_1166/v1617130589/www.steelcase.com/2021/03/30/21-0156775.png" alt="Study Hub Image">
+        </div>
+        <div class="description">
+            <p>Solo study is self-directed learning that requires discipline, effective strategies, and resourcefulness.</p>
+            <P>START,STUDY,SUCCEED</P>
+        </div>
+        <div class="title">STUDY HUB</div>
+        <button class="start-button">START HERE</button>
+    </div>
+
+</body>
+</html>

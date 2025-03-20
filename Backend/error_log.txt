@@ -1,0 +1,12 @@
+[26-Feb-2025 09:50:22 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined method PDOStatement::bind_param() in C:\xampp3\htdocs\Study hub\Backend\calculate.php:35
+Stack trace:
+#0 {main}
+  thrown in C:\xampp3\htdocs\Study hub\Backend\calculate.php on line 35
+[26-Feb-2025 09:50:23 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined method PDOStatement::bind_param() in C:\xampp3\htdocs\Study hub\Backend\calculate.php:35
+Stack trace:
+#0 {main}
+  thrown in C:\xampp3\htdocs\Study hub\Backend\calculate.php on line 35
+[26-Feb-2025 09:50:23 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined method PDOStatement::bind_param() in C:\xampp3\htdocs\Study hub\Backend\calculate.php:35
+Stack trace:
+#0 {main}
+  thrown in C:\xampp3\htdocs\Study hub\Backend\calculate.php on line 35

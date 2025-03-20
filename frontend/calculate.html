@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Time Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .container {
+            width: 350px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            margin: auto;
+        }
+        input, button {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        p {
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Video Time Calculator</h2>
+        
+        <label>Total Video Hours:</label>
+        <input type="float" id="totalHours" placeholder="Enter total video hours" required step="0.01">
+
+        <label>Start Date:</label>
+        <input type="date" id="startDate" required>
+
+        <label>End Date:</label>
+        <input type="date" id="endDate" required>
+
+        <button onclick="validateDate()">Proceed to Evaluation</button>
+        <button onclick="calculateStudyTime()">Calculate</button>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetchRemainingTime();
+        });
+
+        async function fetchRemainingTime() {
+            try {
+                const response = await fetch('../Backend/calculate.php');
+                const text = await response.text();
+
+                console.log("Raw Response:", text); // Debugging
+                
+                try {
+                    const data = JSON.parse(text);
+                    console.log("Parsed Data:", data);
+
+                    if (data.error) {
+                        document.getElementById("result").innerHTML = `<b style="color:red;">${data.error}</b>`;
+                        return;
+                    }
+
+                    if (data.remainingTime !== undefined) {
+                        document.getElementById("totalHours").value = (data.remainingTime / 3600).toFixed(2);
+                    } else {
+                        document.getElementById("totalHours").value = "0.00";
+                    }
+                } catch (jsonError) {
+                    console.error("JSON Parse Error:", jsonError);
+                    document.getElementById("result").innerHTML = `<b style="color:red;">Invalid JSON response from server!</b>`;
+                }
+            } catch (error) {
+                console.error("Fetch Error:", error);
+                document.getElementById("result").innerHTML = `<b style="color:red;">Error fetching remaining time!</b>`;
+            }
+        }
+
+        function validateDate() {
+            const totalHours = parseFloat(document.getElementById("totalHours").value);
+            const startDate = document.getElementById("startDate").value;
+            const endDate = document.getElementById("endDate").value;
+            const systemDate = new Date().toISOString().split('T')[0];
+
+            if (!totalHours || !startDate || !endDate) {
+                alert("Please enter all fields!");
+                return;
+            }
+
+            if (endDate === systemDate) {
+                window.location.href = `evaluation.php?endDate=${endDate}`;
+            } else {
+                alert("The end date must match today's system date!");
+            }
+        }
+
+        async function calculateStudyTime() {
+            let totalHours = parseFloat(document.getElementById("totalHours").value);
+            let startDate = document.getElementById("startDate").value;
+            let endDate = document.getElementById("endDate").value;
+
+            if (!totalHours || !startDate || !endDate) {
+                alert("Please enter all fields!");
+                return;
+            }
+
+            let data = {
+                totalHours: totalHours,
+                startDate: startDate,
+                endDate: endDate
+            };
+
+            try {
+                const response = await fetch("../Backend/calculate.php", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+                console.log("Response from PHP:", result); // Debugging
+
+                if (result.error) {
+                    document.getElementById("result").innerHTML = `<b style="color:red;">${result.error}</b>`;
+                } else {
+                    localStorage.setItem("dailyStudyTime", result.dailyMinutes);
+                    window.location.href = "vv.php";
+                }
+            } catch (error) {
+                console.error("Fetch Error:", error);
+                document.getElementById("result").innerHTML = `<b style="color:red;">Error fetching data!</b>`;
+            }
+        }
+    </script>
+</body>
+</html>
